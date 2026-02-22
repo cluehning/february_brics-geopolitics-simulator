@@ -50,6 +50,7 @@ p_{\text{BRICS}} = \sigma(0.35T + 0.6 \cdot \text{USA}_{t-1})
 $$
 
 where  
+
 $$
 \sigma(x) = \frac{1}{1 + e^{-x}}.
 $$
