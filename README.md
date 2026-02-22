@@ -50,15 +50,27 @@ p_{\text{BRICS}} = \sigma(0.35 T + 0.6 \cdot \text{USA}_{t-1})
 
 where \( \sigma(x) = \frac{1}{1 + e^{-x}} \).
 
-Each round generates:
+Each round generates two key outcomes:
 
-- USA defection probability  
-- BRICS defection probability  
-- stochastic move selection  
-- BRICS payoff  
-- cumulative payoff trajectory  
+- **A binary action** (0 = cooperate, 1 = defect) for both USA and BRICS  
+- **A resulting payoff** drawn from the 2×2 matrix  
+  \[
+  \begin{array}{c|cc}
+      & \text{USA: C} & \text{USA: D} \\
+    \hline
+    \text{BRICS: C} & (3,3) & (-2,4) \\
+    \text{BRICS: D} & (4,-2) & (-1,-1)
+  \end{array}
+  \]
 
-This model captures **reciprocity**, **escalation**, and **path‑dependence**.
+Over time, the interaction forms two evolving curves:
+
+1. **Cumulative BRICS payoff**, showing whether escalation or cooperation becomes dominant  
+2. **BRICS defection probability**, which adjusts based on previous actions and the tariff intensity parameter \(T\)
+
+Because both sides update their strategy probabilities using sigmoid functions, the system behaves like a *soft* reinforcement model: early actions shape future tendencies, but no agent becomes deterministic. This creates an iterative dynamic that often drifts toward quasi‑stable regimes before occasionally jumping into new strategic patterns — similar to how non‑linear systems settle, oscillate, or wander depending on parameter strength.
+
+The output visualization highlights this interplay, making the long‑term strategic trajectory easy to interpret.
 
 ---
 
