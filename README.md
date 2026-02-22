@@ -41,12 +41,8 @@ The engine implements three complementary models, each capturing a different fac
 
 A repeated game with logistic‑based adaptive defection:
 
-\[
 p_{\text{USA}} = \sigma(0.4 T + 0.7 \cdot \text{BRICS}_{t-1})
-\]
-\[
 p_{\text{BRICS}} = \sigma(0.35 T + 0.6 \cdot \text{USA}_{t-1})
-\]
 
 where \( \sigma(x) = \frac{1}{1 + e^{-x}} \).
 
