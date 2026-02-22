@@ -139,7 +139,9 @@ Pulls BRICS‑related articles from Google News RSS:
 - published date  
 - source  
 
-Saved to `data/news_cache.json`.
+Saved to:
+
+      data/news_cache.json
 
 ### extract_signals()
 Counts keyword frequencies to generate:
@@ -153,7 +155,9 @@ These signals drive the geopolitical graph.
 
 ## knowledge_graph.py
 
-Maintains and updates `graph_state.json`.
+Maintains and updates:
+
+      graph_state.json
 
 - Loads or initializes the graph  
 - Updates intensities based on news signals  
@@ -189,7 +193,8 @@ This script ties the entire intelligence system together.
    → saved to `graph_state.json`
 
 Run the full update cycle with:
-python update_data.py
+
+      python update_data.py
 
 
 This ensures the dashboard and models always run on **fresh intelligence**.
@@ -251,13 +256,30 @@ The world map is fully responsive and uses a custom color scale to represent:
 The dashboard is the **final layer** of the pipeline — the visualization of everything computed upstream.
 
 Run it with:
-python app.py
+
+      python app.py
 
 ---
 
 # Project Structure
-/data brics_data.json news_cache.json graph_state.json
-brics_gt.py knowledge_graph.py news_ai.py update_data.py app.py assets/ README.md
+
+      │   app.py
+      │   BRICS.py
+      │   BRICS_GT.py
+      │   knowledge_graph.py
+      │   news_ai.py
+      │   update_data.py
+      │
+      ├───assets
+      │   │   font_v3.css
+      │   │
+      │   └───fonts
+      │           TTNormsPro-Medium.ttf
+      │           TTNormsPro-Regular.ttf
+      │
+      ├───data
+      │       graph_state.json
+      │       news_cache.json
 
 
 ---
@@ -276,7 +298,8 @@ Core libraries:
 - webbrowser  
 
 Install with:
-pip install numpy plotly dash feedparser
+
+      pip install numpy plotly dash feedparser
 
 
 
