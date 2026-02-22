@@ -41,27 +41,32 @@ The engine implements three complementary models, each capturing a different fac
 
 A repeated game with logistic‑based adaptive defection:
 
-\[
-p_{\text{USA}} = \sigma(0.4 T + 0.7 \cdot \text{BRICS}_{t-1})
-\]
-\[
-p_{\text{BRICS}} = \sigma(0.35 T + 0.6 \cdot \text{USA}_{t-1})
-\]
+$$
+p_{\text{USA}} = \sigma(0.4T + 0.7 \cdot \text{BRICS}_{t-1})
+$$
 
-where \( \sigma(x) = \frac{1}{1 + e^{-x}} \).
+$$
+p_{\text{BRICS}} = \sigma(0.35T + 0.6 \cdot \text{USA}_{t-1})
+$$
+
+where  
+\[
+\sigma(x) = \frac{1}{1 + e^{-x}}.
+\]
 
 Each round generates two key outcomes:
 
 - **A binary action** (0 = cooperate, 1 = defect) for both USA and BRICS  
 - **A resulting payoff** drawn from the 2×2 matrix  
-  \[
-  \begin{array}{c|cc}
+
+\[
+\begin{array}{c|cc}
       & \text{USA: C} & \text{USA: D} \\
     \hline
     \text{BRICS: C} & (3,3) & (-2,4) \\
     \text{BRICS: D} & (4,-2) & (-1,-1)
-  \end{array}
-  \]
+\end{array}
+\]
 
 Over time, the interaction forms two evolving curves:
 
