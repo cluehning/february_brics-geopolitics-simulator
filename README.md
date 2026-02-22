@@ -1,0 +1,290 @@
+# BRICS Game Theory — Modeling Strategy, Incentives, and the Geometry of Power
+
+## How This Project Began
+
+This repository started with a simple intuition:
+
+**Geopolitics behaves like a dynamical system.**
+
+BRICS nations interact through incentives, feedback loops, and structural dependencies that resemble mathematical systems more than political narratives.  
+So I built a computational pipeline that treats geopolitics as something **computable** — something that can be mapped, simulated, and visualized.
+
+The result is a multi‑layered intelligence system:
+
+- macro‑economic data ingestion  
+- real‑time news signal extraction  
+- a persistent geopolitical knowledge graph  
+- adaptive game‑theory models  
+- differential‑equation escalation dynamics  
+- a fully interactive Dash dashboard  
+
+Each layer feeds the next.  
+The code is intentionally **cumulative** — every module builds on the previous one.
+
+---
+
+# System Architecture — A Pipeline That Builds on Itself
+
+
+Every component depends on the outputs of the previous one.  
+This is the core design philosophy: **data → signals → structure → strategy → visualization**.
+
+---
+
+# The Mathematical Core
+
+The engine implements three complementary models, each capturing a different facet of strategic behavior.
+
+---
+
+## 1. Adaptive Tariff Game
+
+A repeated game with logistic‑based adaptive defection:
+
+\[
+p_{\text{USA}} = \sigma(0.4 T + 0.7 \cdot \text{BRICS}_{t-1})
+\]
+\[
+p_{\text{BRICS}} = \sigma(0.35 T + 0.6 \cdot \text{USA}_{t-1})
+\]
+
+where \( \sigma(x) = \frac{1}{1 + e^{-x}} \).
+
+Each round generates:
+
+- USA defection probability  
+- BRICS defection probability  
+- stochastic move selection  
+- BRICS payoff  
+- cumulative payoff trajectory  
+
+This model captures **reciprocity**, **escalation**, and **path‑dependence**.
+
+---
+
+## 2. Energy & Currency Coordination Game
+
+A coalition‑formation payoff model:
+
+\[
+\text{Net}(n) = 4 n^{1.2} + 0.6 C \cdot n - \text{Penalty}(n)
+\]
+
+where \( C \) is the China–Russia coordination intensity.
+
+This model quantifies:
+
+- marginal benefit of additional cooperating states  
+- diminishing returns  
+- structural penalties  
+- coalition stability  
+
+It is a **non‑linear cooperative game** embedded in economic constraints.
+
+---
+
+## 3. Richardson‑Style Tariff Arms Race
+
+A continuous‑time escalation model:
+
+\[
+\frac{dU}{dt} = k_1 B - c_1 U + s_1
+\]
+\[
+\frac{dB}{dt} = k_2 U - c_2 B + s_2
+\]
+
+with parameters derived from the geopolitical graph.
+
+This model captures:
+
+- reactive escalation  
+- internal damping  
+- exogenous pressure  
+- long‑run equilibrium or divergence  
+
+It is the classical arms‑race system, reinterpreted for tariff policy.
+
+---
+
+# Intelligence Layer — News → Signals → Graph
+
+## news_ai.py
+
+This module transforms real‑world news into numerical signals.
+
+### fetch_news()
+Pulls BRICS‑related articles from Google News RSS:
+
+- title  
+- link  
+- published date  
+- source  
+
+Saved to `data/news_cache.json`.
+
+### extract_signals()
+Counts keyword frequencies to generate:
+
+- **tariff_signal**  
+- **coord_signal**  
+
+These signals drive the geopolitical graph.
+
+---
+
+## knowledge_graph.py
+
+Maintains and updates `graph_state.json`.
+
+- Loads or initializes the graph  
+- Updates intensities based on news signals  
+- Ensures file integrity even if corrupted  
+
+Signals modify:
+
+- USA tariff aggression  
+- China/Russia coordination  
+- India’s alignment drift  
+
+This graph becomes the **parameter backbone** for all game‑theory models.
+
+---
+
+# Macro‑Data Layer — update_data.py
+
+This script ties the entire intelligence system together.
+
+### Pipeline:
+
+1. **Collect macro‑economic BRICS data**  
+   via `BRICSDataCollector`  
+   → saved to `brics_data.json`
+
+2. **Fetch and parse BRICS news**  
+   → saved to `news_cache.json`
+
+3. **Extract numerical signals**  
+   → tariff_signal, coord_signal
+
+4. **Update geopolitical graph**  
+   → saved to `graph_state.json`
+
+Run the full update cycle with:
+python update_data.py
+
+
+This ensures the dashboard and models always run on **fresh intelligence**.
+
+---
+
+# Game‑Theory Engine — brics_gt.py
+
+The `BRICS_GT` class loads:
+
+- macro‑data  
+- news cache  
+- geopolitical graph  
+
+and computes:
+
+- tariff aggression intensity  
+- coordination intensity  
+
+These become the parameters for all three models.
+
+It also includes:
+
+- Plotly visualization  
+- HTML export utilities  
+- A mathematical summary engine that interprets model output  
+
+---
+
+# Dashboard Layer — Dash App
+
+Your final script builds the **interactive dashboard**.
+
+It integrates:
+
+- live news feed  
+- BRICS world influence map  
+- tariff game simulation  
+- energy coordination model  
+- arms‑race dynamics  
+- model‑generated summaries  
+
+The dashboard uses:
+
+- `BRICS_GT` for simulations  
+- `news_ai` for live news  
+- `knowledge_graph` for geopolitical state  
+- Plotly for all visualizations  
+- Dash Tabs for navigation  
+
+The world map is fully responsive and uses a custom color scale to represent:
+
+- BRICS members  
+- high‑influence states  
+- medium‑influence states  
+- low‑influence states  
+- neutral states  
+
+The dashboard is the **final layer** of the pipeline — the visualization of everything computed upstream.
+
+Run it with:
+python app.py
+
+---
+
+# Project Structure
+/data brics_data.json news_cache.json graph_state.json
+brics_gt.py knowledge_graph.py news_ai.py update_data.py app.py assets/ README.md
+
+
+---
+
+# Dependencies
+
+Core libraries:
+
+- numpy  
+- plotly  
+- dash  
+- feedparser  
+- json  
+- textwrap  
+- os  
+- webbrowser  
+
+Install with:
+pip install numpy plotly dash feedparser
+
+
+
+---
+
+# Why This Project Exists
+
+This repository is an attempt to treat geopolitics as a **computable system**:
+
+- incentives become payoff matrices  
+- alignment becomes graph structure  
+- escalation becomes differential equations  
+- cooperation becomes coalition payoffs  
+- uncertainty becomes stochastic strategy selection  
+- news becomes numerical signals  
+- macro‑data becomes structural parameters  
+- everything flows into a unified dashboard  
+
+It is a way of seeing BRICS not as headlines, but as **strategic agents embedded in a dynamic landscape**.
+
+The mathematics does not replace political analysis —  
+it reveals the structure beneath it.
+
+---
+
+# License
+
+MIT License
+
