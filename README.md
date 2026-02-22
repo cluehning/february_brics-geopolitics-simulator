@@ -50,23 +50,23 @@ p_{\text{BRICS}} = \sigma(0.35T + 0.6 \cdot \text{USA}_{t-1})
 $$
 
 where  
-\[
+$$
 \sigma(x) = \frac{1}{1 + e^{-x}}.
-\]
+$$
 
 Each round generates two key outcomes:
 
 - **A binary action** (0 = cooperate, 1 = defect) for both USA and BRICS  
 - **A resulting payoff** drawn from the 2×2 matrix  
 
-\[
+$$
 \begin{array}{c|cc}
       & \text{USA: C} & \text{USA: D} \\
     \hline
     \text{BRICS: C} & (3,3) & (-2,4) \\
     \text{BRICS: D} & (4,-2) & (-1,-1)
 \end{array}
-\]
+$$
 
 Over time, the interaction forms two evolving curves:
 
@@ -83,11 +83,11 @@ The output visualization highlights this interplay, making the long‑term strat
 
 A coalition‑formation payoff model:
 
-\[
+$$
 \text{Net}(n) = 4 n^{1.2} + 0.6 C \cdot n - \text{Penalty}(n)
-\]
+$$
 
-where \( C \) is the China–Russia coordination intensity.
+where $$\( C \)$$ is the China–Russia coordination intensity.
 
 This model quantifies:
 
@@ -104,12 +104,12 @@ It is a **non‑linear cooperative game** embedded in economic constraints.
 
 A continuous‑time escalation model:
 
-\[
+$$
 \frac{dU}{dt} = k_1 B - c_1 U + s_1
-\]
-\[
+$$
+$$
 \frac{dB}{dt} = k_2 U - c_2 B + s_2
-\]
+$$
 
 with parameters derived from the geopolitical graph.
 
