@@ -38,12 +38,22 @@ The engine implements three complementary models, each capturing a different fac
 ---
 
 ## 1. Adaptive Tariff Game
+## 1. Adaptive Tariff Game
+
+A repeated game with logistic-based adaptive defection:
+
+p_USA   = σ(0.4·T + 0.7·BRICS_(t−1))  
+p_BRICS = σ(0.35·T + 0.6·USA_(t−1))
+
+where:
+
+σ(x) = 1 / (1 + e^(−x))
 
 A repeated game with logistic‑based adaptive defection:
 
-$$
+\[
 p_{\text{USA}} = \sigma(0.4 T + 0.7 \cdot \text{BRICS}_{t-1})
-$$
+\]
 \[
 p_{\text{BRICS}} = \sigma(0.35 T + 0.6 \cdot \text{USA}_{t-1})
 \]
