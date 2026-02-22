@@ -23,7 +23,7 @@ The code is intentionally **cumulative** — every module builds on the previous
 
 ---
 
-# System Architecture — A Pipeline That Builds on Itself
+# System Struture
 
 
 Every component depends on the outputs of the previous one.  
@@ -31,7 +31,7 @@ This is the core design philosophy: **data → signals → structure → strateg
 
 ---
 
-# The Mathematical Core
+# The Core Idea: Game Theory
 
 The engine implements three complementary models, each capturing a different facet of strategic behavior.
 
@@ -125,13 +125,16 @@ It is the classical arms‑race system, reinterpreted for tariff policy.
 
 ---
 
-# Intelligence Layer — News → Signals → Graph
+# Overview — News → Signals → Graph
 
-## news_ai.py
+## News: BRICS.py
+
+
+### news_ai.py
 
 This module transforms real‑world news into numerical signals.
 
-### fetch_news()
+#### fetch_news()
 Pulls BRICS‑related articles from Google News RSS:
 
 - title  
@@ -143,7 +146,7 @@ Saved to:
 
       data/news_cache.json
 
-### extract_signals()
+#### extract_signals()
 Counts keyword frequencies to generate:
 
 - **tariff_signal**  
@@ -153,7 +156,7 @@ These signals drive the geopolitical graph.
 
 ---
 
-## knowledge_graph.py
+### knowledge_graph.py
 
 Maintains and updates:
 
@@ -173,7 +176,7 @@ This graph becomes the **parameter backbone** for all game‑theory models.
 
 ---
 
-# Macro‑Data Layer — update_data.py
+# Signals: update_data.py
 
 This script ties the entire intelligence system together.
 
@@ -201,7 +204,7 @@ This ensures the dashboard and models always run on **fresh intelligence**.
 
 ---
 
-# Game‑Theory Engine — brics_gt.py
+## Game‑Theory Engine — brics_gt.py
 
 The `BRICS_GT` class loads:
 
@@ -224,7 +227,7 @@ It also includes:
 
 ---
 
-# Dashboard Layer — Dash App
+# Graph: Dash App
 
 Your final script builds the **interactive dashboard**.
 
