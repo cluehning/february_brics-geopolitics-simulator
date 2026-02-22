@@ -23,14 +23,6 @@ The code is intentionally **cumulative** — every module builds on the previous
 
 ---
 
-# System Struture
-
-
-Every component depends on the outputs of the previous one.  
-This is the core design philosophy: **data → signals → structure → strategy → visualization**.
-
----
-
 # The Core Idea: Game Theory
 
 The engine implements three complementary models, each capturing a different facet of strategic behavior.
@@ -129,6 +121,88 @@ It is the classical arms‑race system, reinterpreted for tariff policy.
 
 ## News: BRICS.py
 
+`BRICS.py` is a complete data‑collection and visualization toolkit for analyzing economic, social, resource, governance, and defense indicators for the five BRICS countries: **Brazil, Russia, India, China, and South Africa**.
+
+The script performs three major tasks:
+
+1. **Data Collection**
+   - Retrieves a broad range of indicators from the **World Bank API** (GDP, inflation, energy use, employment, life expectancy, etc.).
+   - Generates simulated trade data (placeholder values for exports and imports).
+   - Organizes all collected data into a timestamped, structured dataset.
+
+2. **Data Storage & Export**
+   - Saves the full dataset as a JSON file (`brics_data.json`).
+   - Exports country‑sector CSV tables for further analysis.
+
+3. **Data Visualization**
+   - Generates interactive Plotly dashboards for individual countries.
+   - Produces cross‑country comparisons within any selected sector.
+   - Creates a comprehensive heatmap summarizing multi‑year trends across all indicators.
+
+---
+
+## 📊 Visualizations
+
+### 1. Single‑Country Dashboard
+**Function:** `create_country_dashboard(country)`
+
+This dashboard displays time‑series charts for key indicators of a selected BRICS country.
+
+**What it shows:**
+- Year‑by‑year **GDP Growth** (and optionally other indicators)
+- Multiple subplots in a clean, interactive layout
+- Visual overview of a country’s economic and social trajectory
+
+Use this when you want a **deep dive into one country** rather than comparisons across countries.
+
+---
+
+### 2. Sector Comparison
+**Function:** `create_sector_comparison(sector)`
+
+Compares all BRICS countries within a chosen sector (economic, resources, governance, social development, etc.).
+
+**What it shows:**
+- Up to four indicators from the selected sector
+- Each indicator displayed as a time‑series line plot
+- BRICS countries color‑coded consistently
+- Organized in a 2×2 subplot grid
+
+Use this to quickly compare **how different countries evolve** on the same variables.
+
+---
+
+### 3. Comprehensive Trend Heatmap
+**Function:** `create_comprehensive_heatmap()`
+
+This heatmap summarizes the **trend direction and magnitude** of every indicator across all BRICS countries.
+
+**How it works:**
+- Uses the **last five years** of each indicator
+- Fits a linear trendline
+- Computes a normalized trend value:
+  - **Positive = indicator increasing**
+  - **Negative = indicator decreasing**
+- Colors are assigned via **RdYlBu_r**:
+  - **Red = strong upward trend**
+  - **Blue = strong downward trend**
+  - **White/Yellow = stable or minimal change**
+
+**What the heatmap answers:**
+> *Which indicators are improving or declining in each BRICS country — and by how much?*
+
+It serves as a high‑level diagnostic tool to identify:
+- Rapid improvements (e.g., rising internet access or GDP per capita)
+- Declining indicators (e.g., falling energy use or reduced forest area)
+- Mixed trends across sectors and countries
+
+---
+
+## ✔️ Summary
+
+`BRICS.py` gives you a full workflow:
+**Collect → Organize → Analyze → Visualize**,  
+allowing researchers and analysts to explore long‑term development patterns across BRICS nations.
 
 ### news_ai.py
 
