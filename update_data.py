@@ -1,4 +1,3 @@
-# update_data.py
 from BRICS import BRICSDataCollector
 from news_ai import fetch_news, extract_signals
 from knowledge_graph import update_graph
@@ -25,3 +24,4 @@ def update():
 
 if __name__ == "__main__":
     update()
+
