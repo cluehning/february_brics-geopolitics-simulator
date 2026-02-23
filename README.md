@@ -384,6 +384,20 @@ It is a way of seeing BRICS not as headlines, but as **strategic agents embedded
 The mathematics does not replace political analysis —  
 it reveals the structure beneath it.
 
+## Data Sources
+
+This project uses publicly available datasets from:
+
+- **World Bank Open Data API**  
+  https://data.worldbank.org  
+  Used for: GDP, inflation, trade, population, energy, governance indicators.
+
+- **Google News RSS**  
+  Used to fetch recent BRICS‑related articles for signal extraction.
+
+- **Simulated Trade Data (Temporary Placeholder)**  
+  Used until a stable Comtrade API key is integrated.
+  
 ---
 
 # License
