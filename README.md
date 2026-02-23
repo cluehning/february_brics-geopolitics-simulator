@@ -65,6 +65,8 @@ The script performs three major tasks:
    - Produces cross‑country comparisons within any selected sector.
    - Creates a comprehensive heatmap summarizing multi‑year trends across all indicators.
 
+---
+
 **Visualization**
 
 **1. Single‑Country Dashboard**
@@ -116,6 +118,8 @@ It serves as a high‑level diagnostic tool to identify:
 - Declining indicators (e.g., falling energy use or reduced forest area)
 - Mixed trends across sectors and countries
 
+---
+
 ### news_ai.py
 
 This module transforms real‑world news into numerical signals.
@@ -139,6 +143,8 @@ Counts keyword frequencies to generate:
 - **coord_signal**  
 
 These signals drive the geopolitical graph.
+
+---
 
 ### knowledge_graph.py
 
@@ -211,7 +217,7 @@ It also includes:
 
 ---
 
-## Game Theory Models
+### Game Theory Models
 
 The engine implements three complementary models, each capturing a different facet of strategic behavior.
 
