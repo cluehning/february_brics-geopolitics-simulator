@@ -1,7 +1,5 @@
 # BRICS Game Theory — Modeling Strategy, Incentives, and the Geometry of Power
 
-## How This Project Began
-
 This repository started with a simple intuition:
 
 **Geopolitics behaves like a dynamical system.**
@@ -23,7 +21,7 @@ The code is intentionally **cumulative** — every module builds on the previous
 
 ---
 
-# Project Structure
+## Repository Structure
 
       │   app.py
       │   BRICS.py
@@ -45,7 +43,7 @@ The code is intentionally **cumulative** — every module builds on the previous
 
 ---
 
-# Overview — News → Signals → Graph
+## Pipeline Overview: News → Signals → Graph
 
 ## News: BRICS.py
 
@@ -67,11 +65,9 @@ The script performs three major tasks:
    - Produces cross‑country comparisons within any selected sector.
    - Creates a comprehensive heatmap summarizing multi‑year trends across all indicators.
 
----
+**Visualization**
 
-### Visualizations
-
-#### 1. Single‑Country Dashboard
+**1. Single‑Country Dashboard**
 **Function:** `create_country_dashboard(country)`
 
 This dashboard displays time‑series charts for key indicators of a selected BRICS country.
@@ -83,9 +79,7 @@ This dashboard displays time‑series charts for key indicators of a selected BR
 
 Use this when you want a **deep dive into one country** rather than comparisons across countries.
 
----
-
-#### 2. Sector Comparison
+**2. Sector Comparison**
 **Function:** `create_sector_comparison(sector)`
 
 Compares all BRICS countries within a chosen sector (economic, resources, governance, social development, etc.).
@@ -98,9 +92,7 @@ Compares all BRICS countries within a chosen sector (economic, resources, govern
 
 Use this to quickly compare **how different countries evolve** on the same variables.
 
----
-
-#### 3. Comprehensive Trend Heatmap
+**3. Comprehensive Trend Heatmap**
 **Function:** `create_comprehensive_heatmap()`
 
 This heatmap summarizes the **trend direction and magnitude** of every indicator across all BRICS countries.
@@ -128,7 +120,7 @@ It serves as a high‑level diagnostic tool to identify:
 
 This module transforms real‑world news into numerical signals.
 
-#### fetch_news()
+**fetch_news()**
 Pulls BRICS‑related articles from Google News RSS:
 
 - title  
@@ -140,7 +132,7 @@ Saved to:
 
       data/news_cache.json
 
-#### extract_signals()
+**extract_signals()**
 Counts keyword frequencies to generate:
 
 - **tariff_signal**  
@@ -168,7 +160,7 @@ This graph becomes the **parameter backbone** for all game‑theory models.
 
 ---
 
-# Signals: update_data.py
+## Signals: update_data.py
 
 This script ties the entire intelligence system together.
 
@@ -219,12 +211,12 @@ It also includes:
 
 ---
 
-# The Core Idea: Game Theory
+## Game Theory Models
 
 The engine implements three complementary models, each capturing a different facet of strategic behavior.
 
 
-## 1. Adaptive Tariff Game
+### 1. Adaptive Tariff Game
 
 A repeated game with logistic‑based adaptive defection:
 
@@ -266,7 +258,7 @@ Because both sides update their strategy probabilities using sigmoid functions, 
 The output visualization highlights this interplay, making the long‑term strategic trajectory easy to interpret.
 
 
-## 2. Energy & Currency Coordination Game
+### 2. Energy & Currency Coordination Game
 
 A coalition‑formation payoff model:
 
@@ -286,7 +278,7 @@ This model quantifies:
 It is a **non‑linear cooperative game** embedded in economic constraints.
 
 
-## 3. Richardson‑Style Tariff Arms Race
+### 3. Richardson‑Style Tariff Arms Race
 
 A continuous‑time escalation model:
 
@@ -310,7 +302,7 @@ It is the classical arms‑race system, reinterpreted for tariff policy.
 
 ---
 
-# Dash App
+## Dash App
 
 Your final script builds the **interactive dashboard**.
 
@@ -347,7 +339,7 @@ Run it with:
 
 ---
 
-# Dependencies
+## Dependencies
 
 Core libraries:
 
@@ -384,7 +376,7 @@ It is a way of seeing BRICS not as headlines, but as **strategic agents embedded
 The mathematics does not replace political analysis —  
 it reveals the structure beneath it.
 
-## Data Sources
+### Data Sources
 
 This project uses publicly available datasets from:
 
