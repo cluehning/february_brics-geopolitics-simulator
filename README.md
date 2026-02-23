@@ -23,97 +23,25 @@ The code is intentionally **cumulative** — every module builds on the previous
 
 ---
 
-# The Core Idea: Game Theory
+# Project Structure
 
-The engine implements three complementary models, each capturing a different facet of strategic behavior.
-
----
-
-## 1. Adaptive Tariff Game
-
-A repeated game with logistic‑based adaptive defection:
-
-$$
-p_{\text{USA}} = \sigma(0.4T + 0.7 \cdot \text{BRICS}_{t-1})
-$$
-
-$$
-p_{\text{BRICS}} = \sigma(0.35T + 0.6 \cdot \text{USA}_{t-1})
-$$
-
-where  
-
-$$
-\sigma(x) = \frac{1}{1 + e^{-x}}.
-$$
-
-Each round generates two key outcomes:
-
-- **A binary action** (0 = cooperate, 1 = defect) for both USA and BRICS  
-- **A resulting payoff** drawn from the 2×2 matrix  
-
-$$
-\begin{array}{c|cc}
-      & \text{USA: C} & \text{USA: D} \\
-    \hline
-    \text{BRICS: C} & (3,3) & (-2,4) \\
-    \text{BRICS: D} & (4,-2) & (-1,-1)
-\end{array}
-$$
-
-Over time, the interaction forms two evolving curves:
-
-1. **Cumulative BRICS payoff**, showing whether escalation or cooperation becomes dominant  
-2. **BRICS defection probability**, which adjusts based on previous actions and the tariff intensity parameter \(T\)
-
-Because both sides update their strategy probabilities using sigmoid functions, the system behaves like a *soft* reinforcement model: early actions shape future tendencies, but no agent becomes deterministic. This creates an iterative dynamic that often drifts toward quasi‑stable regimes before occasionally jumping into new strategic patterns — similar to how non‑linear systems settle, oscillate, or wander depending on parameter strength.
-
-The output visualization highlights this interplay, making the long‑term strategic trajectory easy to interpret.
-
----
-
-## 2. Energy & Currency Coordination Game
-
-A coalition‑formation payoff model:
-
-$$
-\text{Net}(n) = 4 n^{1.2} + 0.6 C \cdot n - \text{Penalty}(n)
-$$
-
-where $$\( C \)$$ is the China–Russia coordination intensity.
-
-This model quantifies:
-
-- marginal benefit of additional cooperating states  
-- diminishing returns  
-- structural penalties  
-- coalition stability  
-
-It is a **non‑linear cooperative game** embedded in economic constraints.
-
----
-
-## 3. Richardson‑Style Tariff Arms Race
-
-A continuous‑time escalation model:
-
-$$
-\frac{dU}{dt} = k_1 B - c_1 U + s_1
-$$
-$$
-\frac{dB}{dt} = k_2 U - c_2 B + s_2
-$$
-
-with parameters derived from the geopolitical graph.
-
-This model captures:
-
-- reactive escalation  
-- internal damping  
-- exogenous pressure  
-- long‑run equilibrium or divergence  
-
-It is the classical arms‑race system, reinterpreted for tariff policy.
+      │   app.py
+      │   BRICS.py
+      │   BRICS_GT.py
+      │   knowledge_graph.py
+      │   news_ai.py
+      │   update_data.py
+      │
+      ├───assets
+      │   │   font_v3.css
+      │   │
+      │   └───fonts
+      │           TTNormsPro-Medium.ttf
+      │           TTNormsPro-Regular.ttf
+      │
+      ├───data
+      │       graph_state.json
+      │       news_cache.json
 
 ---
 
@@ -141,9 +69,9 @@ The script performs three major tasks:
 
 ---
 
-## 📊 Visualizations
+### Visualizations
 
-### 1. Single‑Country Dashboard
+#### 1. Single‑Country Dashboard
 **Function:** `create_country_dashboard(country)`
 
 This dashboard displays time‑series charts for key indicators of a selected BRICS country.
@@ -157,7 +85,7 @@ Use this when you want a **deep dive into one country** rather than comparisons 
 
 ---
 
-### 2. Sector Comparison
+#### 2. Sector Comparison
 **Function:** `create_sector_comparison(sector)`
 
 Compares all BRICS countries within a chosen sector (economic, resources, governance, social development, etc.).
@@ -172,7 +100,7 @@ Use this to quickly compare **how different countries evolve** on the same varia
 
 ---
 
-### 3. Comprehensive Trend Heatmap
+#### 3. Comprehensive Trend Heatmap
 **Function:** `create_comprehensive_heatmap()`
 
 This heatmap summarizes the **trend direction and magnitude** of every indicator across all BRICS countries.
@@ -195,14 +123,6 @@ It serves as a high‑level diagnostic tool to identify:
 - Rapid improvements (e.g., rising internet access or GDP per capita)
 - Declining indicators (e.g., falling energy use or reduced forest area)
 - Mixed trends across sectors and countries
-
----
-
-## ✔️ Summary
-
-`BRICS.py` gives you a full workflow:
-**Collect → Organize → Analyze → Visualize**,  
-allowing researchers and analysts to explore long‑term development patterns across BRICS nations.
 
 ### news_ai.py
 
@@ -227,8 +147,6 @@ Counts keyword frequencies to generate:
 - **coord_signal**  
 
 These signals drive the geopolitical graph.
-
----
 
 ### knowledge_graph.py
 
@@ -278,7 +196,7 @@ This ensures the dashboard and models always run on **fresh intelligence**.
 
 ---
 
-## Game‑Theory Engine — brics_gt.py
+## Graph: BRICS_GT.py
 
 The `BRICS_GT` class loads:
 
@@ -301,7 +219,98 @@ It also includes:
 
 ---
 
-# Graph: Dash App
+# The Core Idea: Game Theory
+
+The engine implements three complementary models, each capturing a different facet of strategic behavior.
+
+
+## 1. Adaptive Tariff Game
+
+A repeated game with logistic‑based adaptive defection:
+
+$$
+p_{\text{USA}} = \sigma(0.4T + 0.7 \cdot \text{BRICS}_{t-1})
+$$
+
+$$
+p_{\text{BRICS}} = \sigma(0.35T + 0.6 \cdot \text{USA}_{t-1})
+$$
+
+where  
+
+$$
+\sigma(x) = \frac{1}{1 + e^{-x}}.
+$$
+
+Each round generates two key outcomes:
+
+- **A binary action** (0 = cooperate, 1 = defect) for both USA and BRICS  
+- **A resulting payoff** drawn from the 2×2 matrix  
+
+$$
+\begin{array}{c|cc}
+      & \text{USA: C} & \text{USA: D} \\
+    \hline
+    \text{BRICS: C} & (3,3) & (-2,4) \\
+    \text{BRICS: D} & (4,-2) & (-1,-1)
+\end{array}
+$$
+
+Over time, the interaction forms two evolving curves:
+
+1. **Cumulative BRICS payoff**, showing whether escalation or cooperation becomes dominant  
+2. **BRICS defection probability**, which adjusts based on previous actions and the tariff intensity parameter \(T\)
+
+Because both sides update their strategy probabilities using sigmoid functions, the system behaves like a *soft* reinforcement model: early actions shape future tendencies, but no agent becomes deterministic. This creates an iterative dynamic that often drifts toward quasi‑stable regimes before occasionally jumping into new strategic patterns — similar to how non‑linear systems settle, oscillate, or wander depending on parameter strength.
+
+The output visualization highlights this interplay, making the long‑term strategic trajectory easy to interpret.
+
+
+## 2. Energy & Currency Coordination Game
+
+A coalition‑formation payoff model:
+
+$$
+\text{Net}(n) = 4 n^{1.2} + 0.6 C \cdot n - \text{Penalty}(n)
+$$
+
+where $$\( C \)$$ is the China–Russia coordination intensity.
+
+This model quantifies:
+
+- marginal benefit of additional cooperating states  
+- diminishing returns  
+- structural penalties  
+- coalition stability  
+
+It is a **non‑linear cooperative game** embedded in economic constraints.
+
+
+## 3. Richardson‑Style Tariff Arms Race
+
+A continuous‑time escalation model:
+
+$$
+\frac{dU}{dt} = k_1 B - c_1 U + s_1
+$$
+$$
+\frac{dB}{dt} = k_2 U - c_2 B + s_2
+$$
+
+with parameters derived from the geopolitical graph.
+
+This model captures:
+
+- reactive escalation  
+- internal damping  
+- exogenous pressure  
+- long‑run equilibrium or divergence  
+
+It is the classical arms‑race system, reinterpreted for tariff policy.
+
+---
+
+# Dash App
 
 Your final script builds the **interactive dashboard**.
 
@@ -338,29 +347,6 @@ Run it with:
 
 ---
 
-# Project Structure
-
-      │   app.py
-      │   BRICS.py
-      │   BRICS_GT.py
-      │   knowledge_graph.py
-      │   news_ai.py
-      │   update_data.py
-      │
-      ├───assets
-      │   │   font_v3.css
-      │   │
-      │   └───fonts
-      │           TTNormsPro-Medium.ttf
-      │           TTNormsPro-Regular.ttf
-      │
-      ├───data
-      │       graph_state.json
-      │       news_cache.json
-
-
----
-
 # Dependencies
 
 Core libraries:
@@ -377,8 +363,6 @@ Core libraries:
 Install with:
 
       pip install numpy plotly dash feedparser
-
-
 
 ---
 
