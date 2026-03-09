@@ -310,7 +310,7 @@ It is the classical arms‑race system, reinterpreted for tariff policy.
 
 ## Dash App
 
-Your final script builds the **interactive dashboard**.
+The final script builds the **interactive dashboard**.
 
 It integrates:
 
