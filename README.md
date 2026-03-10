@@ -23,23 +23,53 @@ The code is intentionally **cumulative** — every module builds on the previous
 
 ## Repository Structure
 
-      │   app.py
-      │   BRICS.py
-      │   BRICS_GT.py
-      │   knowledge_graph.py
-      │   news_ai.py
-      │   update_data.py
-      │
-      ├───assets
-      │   │   font_v3.css
-      │   │
-      │   └───fonts
-      │           TTNormsPro-Medium.ttf
-      │           TTNormsPro-Regular.ttf
-      │
-      ├───data
-      │       graph_state.json
-      │       news_cache.json
+      |   app.py
+      |   BRICS.py
+      |   brics_data.json
+      |   brics_economic_comparison.html
+      |   BRICS_GT.py
+      |   dashboard.py
+      |   global_risk_data.py
+      |   knowledge_graph.py
+      |   news_ai.py
+      |   risk_data_collector.py
+      |   risk_data_loader.py
+      |   risk_model.py
+      |   update_data.py
+      |
+      +---assets
+      |   |   font_v3.css
+      |   |
+      |   \---fonts
+      |           TTNormsPro-Medium.ttf
+      |           TTNormsPro-Regular.ttf
+      |
+      +---data
+      |       brics_data.json
+      |       graph_state.json
+      |       hormuz_exposure.csv
+      |       news_cache.json
+      |       suez_exposure.csv
+      |
+      +---etl
+      |       build_hormuz_exposure.py
+      |       build_suez_exposure.py
+      |       common_regions.py
+      |       comtrade_pull.py
+      |
+      \---__pycache__
+              BRICS.cpython-311.pyc
+              BRICS_GT.cpython-311.pyc
+              BRICS_GT.cpython-314.pyc
+              global_risk_data.cpython-314.pyc
+              knowledge_graph.cpython-311.pyc
+              knowledge_graph.cpython-314.pyc
+              news_ai.cpython-311.pyc
+              news_ai.cpython-314.pyc
+              risk_data_collector.cpython-314.pyc
+              risk_data_loader.cpython-314.pyc
+              risk_model.cpython-311.pyc
+              risk_model.cpython-314.pyc
 
 ---
 
@@ -305,6 +335,144 @@ This model captures:
 - long‑run equilibrium or divergence  
 
 It is the classical arms‑race system, reinterpreted for tariff policy.
+
+---
+## Scenario Risk Map
+
+The dashboard now includes a Scenario‑Driven Global Risk Map, a new analytical layer that transforms geopolitical shocks into a spatial risk geometry. It quantifies how disruptions propagate through global trade networks, maritime chokepoints, BRICS‑aligned corridors, energy dependencies, and currency blocs.
+
+The result is a live, interactive world map that updates whenever the pipeline refreshes.
+
+### How the Scenario Engine Works
+The system integrates three major components:
+
+1. Chokepoint Exposure Models
+
+Files:
+
+      etl/build_hormuz_exposure.py
+      etl/build_suez_exposure.py
+      data/hormuz_exposure.csv
+      data/suez_exposure.csv
+
+These scripts compute country‑level exposure to:
+
+- Strait of Hormuz (energy flow risk)
+- Suez Canal (container + oil transit risk)
+
+Each exposure dataset encodes:
+- trade share routed through the chokepoint
+- energy dependency
+- rerouting elasticity
+- shock propagation coefficients
+
+These values become risk multipliers in scenario simulations.
+
+2. Scenario Engine
+File: `global_risk_data.py`
+
+This module defines structured geopolitical scenarios, including:
+- Hormuz Closure
+- Suez Disruption
+- BRICS Currency Bloc Formation
+- Tariff Shock
+- Energy Coalition Expansion
+
+Each scenario injects shocks into the system:
+- supply chain delays
+- price volatility
+- alliance realignment
+- tariff retaliation
+- currency fragmentation
+
+The engine computes a risk score for every country, combining:
+- chokepoint exposure
+- BRICS alignment
+- macro‑economic fragility
+- news‑derived signals
+- geopolitical graph pressure
+
+3. Global Risk Map Renderer
+The dashboard visualizes scenario output using a custom color scale:
+- Deep Red — severe systemic risk
+- Orange — elevated exposure
+- Yellow — moderate sensitivity
+- Blue — low exposure
+- Grey — neutral or insufficient data
+
+Features:
+- hover for country‑level breakdown
+- switch scenarios in real time
+- compare baseline vs. shock states
+
+This turns the dashboard into a geopolitical stress‑testing environment.
+
+### ETL Pipeline
+The repository includes a dedicated Extract–Transform–Load (ETL) pipeline that prepares all structural data used by the models and dashboard.
+
+Directory:
+
+      etl/
+          build_hormuz_exposure.py
+          build_suez_exposure.py
+          common_regions.py
+          comtrade_pull.py
+
+ETL Stages
+1. Extraction
+- Pulls raw trade data (via Comtrade or placeholders)
+- Loads region mappings and ISO3 codes
+- Reads maritime exposure datasets
+- Integrates World Bank indicators (via BRICS.py)
+
+2. Transformation
+- Normalizes country names and codes
+- Computes chokepoint exposure coefficients
+- Aggregates trade flows by region
+- Cleans and validates datasets
+- Harmonizes time‑series formats
+
+3. Loading
+- Writes standardized CSVs to /data
+- Updates brics_data.json
+- Refreshes graph_state.json
+- Prepares scenario‑ready risk tables
+- The ETL pipeline ensures clean, consistent, reproducible data across all models.
+
+### Global Risk Model
+File: `risk_model.py`
+
+This module fuses:
+- macro‑economic fragility
+- chokepoint exposure
+- BRICS alignment
+- news‑derived signals
+- game‑theory outputs
+- into a unified systemic risk index.
+
+It computes:
+- baseline systemic risk
+- scenario‑adjusted risk
+- regional spillover effects
+- BRICS vs. non‑BRICS divergence
+
+The output feeds directly into:
+- the Scenario Risk Map
+- the dashboard’s risk summary panels
+
+## Full System Flow
+The expanded intelligence pipeline now follows:
+
+      News → Signals → Graph → Game Theory → Risk Model → Scenario Engine → Global Map
+
+Each layer enriches the next:
+- News shifts the geopolitical graph
+- The graph shifts game‑theory parameters
+- Game‑theory outputs shift systemic risk
+- Risk shifts scenario propagation
+- Scenarios reshape the global map
+
+This creates a computational geopolitics stack where every component is mathematically linked.
 
 ---
 
