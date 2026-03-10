@@ -1,7 +1,5 @@
 # BRICS Game Theory — Modeling Strategy, Incentives, and the Geometry of Power
 
-This repository started with a simple intuition:
-
 **Geopolitics behaves like a dynamical system.**
 
 BRICS nations interact through incentives, feedback loops, and structural dependencies that resemble mathematical systems more than political narratives.  
@@ -18,6 +16,37 @@ The result is a multi‑layered intelligence system:
 
 Each layer feeds the next.  
 The code is intentionally **cumulative** — every module builds on the previous one.
+Esseentially, a computational geopolitics engine combining real‑time news signals, macro‑economic data, game‑theory models, and scenario‑driven risk simulations — visualized in an interactive global dashboard.
+
+---
+## Quickstart
+Run the BRICS Geopolitics Simulator locally in under one minute.
+
+1 | Clone the repository
+
+      git clone https://github.com/cluehning/february_brics-geopolitics-simulator.git
+      cd february_brics-geopolitics-simulator
+
+2 | Install dependencies
+Python 3.11+ recommended.
+
+      pip install -r requirements.txt
+
+3 | Pull and preprocess data
+This updates news signals, risk exposures, and BRICS indicators.
+
+      python update_data.py
+
+4 | Launch the dashboard
+Runs the Dash app with the global risk map and scenario engine.
+
+      python app.py
+
+Then open your browser at:
+
+      http://127.0.0.1:8050
+
+You now have the full computational geopolitics engine running locally — including real‑time signals, the BRICS model, the game‑theory engine, and the global scenario map.
 
 ---
 
