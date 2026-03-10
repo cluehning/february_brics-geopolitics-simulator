@@ -5,14 +5,16 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.io as pio
 import webbrowser
+import requests
 
+from dash import Dash, html, dcc, Output, Input
 
 # ============================================================
 # Utility Functions
 # ============================================================
 
+
 def safe_load(path, default):
-    """Load JSON file with fallback if unreadable."""
     try:
         if os.path.exists(path):
             with open(path, "r", encoding="utf-8") as file:
@@ -23,15 +25,10 @@ def safe_load(path, default):
 
 
 def sigmoid(x_val):
-    """Sigmoid function."""
     return 1.0 / (1.0 + np.exp(-x_val))
 
 
 def save_html_with_summary(fig, filename, summary_html):
-    """
-    Write Plotly graph and summary text into a standalone HTML file.
-    Used for offline export; not needed for Dash runtime.
-    """
     graph_html = pio.to_html(
         fig,
         full_html=False,
@@ -58,21 +55,12 @@ def save_html_with_summary(fig, filename, summary_html):
 # ============================================================
 
 class BRICS_GT:
-    """
-    Multi‑model game‑theory engine implementing:
-    - Adaptive tariff game
-    - Energy coordination model
-    - Richardson-style escalation model
-    """
-
     def __init__(self):
         print(">>> Loaded BRICS_GT")
 
-        # Load core datasets
         self.data = safe_load("data/brics_data.json", {})
         self.news = safe_load("data/news_cache.json", {})
 
-        # Default graph state if none exists on disk
         default_graph = {
             "USA": {"tariff_aggression": 5},
             "China": {"coordination": 5},
@@ -82,10 +70,8 @@ class BRICS_GT:
             "South Africa": {"alignment": 2},
         }
 
-        # Load or fallback to default
         self.graph = safe_load("data/graph_state.json", default_graph)
 
-        # Extract core intensities
         self.tariff_intensity = self.graph["USA"]["tariff_aggression"]
         self.coord_intensity = (
             self.graph["China"]["coordination"]
@@ -97,14 +83,9 @@ class BRICS_GT:
     # ============================================================
 
     def generate_summary_from_fig(self, model_type, fig):
-        """
-        Compute model trend classification and produce a text summary
-        based on slope of the generated figure data.
-        """
         y = fig.data[0].y
         slope = y[-1] - y[0]
 
-        # Trend categories
         if slope > 5:
             trend = "a strong upward trajectory"
             expectation = "continued acceleration"
@@ -121,20 +102,17 @@ class BRICS_GT:
             trend = "a sharp downward trajectory"
             expectation = "further contraction"
 
-        # Model‑specific text generation
         if model_type == "tariff":
             text = (
                 f"The cumulative BRICS payoff curve exhibits {trend}. "
                 f"The expected continuation is {expectation}."
             )
-
         elif model_type == "energy":
             text = (
                 f"The coordination payoff curve shows {trend}. "
                 f"The model indicates {expectation}."
             )
-
-        else:  # arms_race
+        else:
             text = (
                 f"The escalation paths display {trend}. "
                 f"The model points to {expectation}."
@@ -148,7 +126,6 @@ class BRICS_GT:
     # ============================================================
 
     def trade_tariff_game(self, filename=None, return_figure=False):
-        """Simulate repeated tariff retaliation with adaptive strategies."""
         rounds = 40
         t_arr = np.arange(rounds)
 
@@ -159,7 +136,6 @@ class BRICS_GT:
         brics_probs = []
         brics_scores = []
 
-        # Payoff matrix: (BRICS, USA)
         payoff = {
             (1, 1): (-1, -1),
             (1, 0): (4, -2),
@@ -225,7 +201,6 @@ class BRICS_GT:
     # ============================================================
 
     def energy_coordination_game(self, filename=None, return_figure=False):
-        """Model coalition payoff under increasing BRICS coordination."""
         coalition = np.arange(1, 6)
 
         base = (coalition ** 1.2) * 4.0
@@ -264,7 +239,6 @@ class BRICS_GT:
     # ============================================================
 
     def tariff_arms_race(self, filename=None, return_figure=False):
-        """Simulate tariff escalation using a Richardson-type system."""
         t_arr = np.linspace(0, 20, 200)
         dt = t_arr[1] - t_arr[0]
 
@@ -325,21 +299,94 @@ class BRICS_GT:
         return fig
 
     # ============================================================
-    # Dash Helper Methods
+    # Dash Helper Methods (needed by app.py)
     # ============================================================
 
     def trade_figure_with_summary(self):
         """Return tariff game figure and its model-based summary."""
         fig = self.trade_tariff_game(return_figure=True)
-        return fig, self.generate_summary_from_fig("tariff", fig)
+        summary = self.generate_summary_from_fig("tariff", fig)
+        return fig, summary
 
     def energy_figure_with_summary(self):
         """Return energy coordination figure and summary."""
         fig = self.energy_coordination_game(return_figure=True)
-        return fig, self.generate_summary_from_fig("energy", fig)
+        summary = self.generate_summary_from_fig("energy", fig)
+        return fig, summary
 
     def arms_race_figure_with_summary(self):
         """Return escalation figure and summary."""
         fig = self.tariff_arms_race(return_figure=True)
-        return fig, self.generate_summary_from_fig("arms_race", fig)
+        summary = self.generate_summary_from_fig("arms_race", fig)
+        return fig, summary
 
+
+# ============================================================
+# DASH APP INTEGRATION
+# ============================================================
+
+app = Dash(__name__)
+engine = BRICS_GT()
+
+app.layout = html.Div([
+    html.H1("BRICS Dashboard"),
+
+    html.H2("Geopolitical Risk Engine"),
+    html.Button("Run Iran Escalation Scenario", id="run-scenario-btn"),
+    html.Pre(id="risk-output", style={"whiteSpace": "pre-wrap"}),
+
+    html.H2("Game Theory Models"),
+    dcc.Dropdown(
+        id="model-select",
+        options=[
+            {"label": "Adaptive Tariff Game", "value": "tariff"},
+            {"label": "Energy Coordination", "value": "energy"},
+            {"label": "Tariff Arms Race", "value": "arms"},
+        ],
+        value="tariff"
+    ),
+    dcc.Graph(id="model-graph"),
+    html.Pre(id="model-summary", style={"whiteSpace": "pre-wrap"})
+])
+
+
+# ============================================================
+# CALLBACKS
+# ============================================================
+
+@app.callback(
+    Output("risk-output", "children"),
+    Input("run-scenario-btn", "n_clicks")
+)
+def run_scenario(n):
+    if not n:
+        return "Click the button to run the scenario."
+
+    res = requests.get("http://127.0.0.1:5000/api/risk/iran-escalation")
+    data = res.json()
+
+    return json.dumps(data, indent=2)
+
+
+@app.callback(
+    Output("model-graph", "figure"),
+    Output("model-summary", "children"),
+    Input("model-select", "value")
+)
+def update_model(model):
+    if model == "tariff":
+        fig, summary = engine.trade_figure_with_summary()
+    elif model == "energy":
+        fig, summary = engine.energy_figure_with_summary()
+    else:
+        fig, summary = engine.arms_race_figure_with_summary()
+
+    return fig, summary
+
+
+# ============================================================
+# RUN DASH
+# ============================================================
+
+if __name__ == "__main__":
+    app.run(debug=True)

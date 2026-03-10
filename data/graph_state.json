@@ -1,8 +1,20 @@
 {
-  "USA": {"tariff_aggression": 5},
-  "China": {"coordination": 5},
-  "Russia": {"coordination": 6},
-  "India": {"alignment": 3},
-  "Brazil": {"alignment": 2},
-  "South Africa": {"alignment": 2}
+  "USA": {
+    "tariff_aggression": 10
+  },
+  "China": {
+    "coordination": 7
+  },
+  "Russia": {
+    "coordination": 8
+  },
+  "India": {
+    "alignment": 3
+  },
+  "Brazil": {
+    "alignment": 2
+  },
+  "South Africa": {
+    "alignment": 2
+  }
 }

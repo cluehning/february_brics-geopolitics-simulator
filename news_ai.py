@@ -1,4 +1,3 @@
-# news_ai.py
 import os
 import json
 import feedparser
