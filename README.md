@@ -583,15 +583,20 @@ it reveals the structure beneath it.
 
 This project uses publicly available datasets from:
 
-- **World Bank Open Data API**  
+- **World Bank Open Data API**
   https://data.worldbank.org  
   Used for: GDP, inflation, trade, population, energy, governance indicators.
-
+- **World Economic Forum — Global Risk Factors**
+  https://raw.githubusercontent.com/WEF/global-risks/master/factors.json
+  Used for: Middle East Tension, Energy Supply Risk, Sanctions Pressure, Alliance Volatility, Global Trade Exposure, Logitics Chokepoint Risk
 - **Google News RSS**  
   Used to fetch recent BRICS‑related articles for signal extraction.
-
-- **Simulated Trade Data (Temporary Placeholder)**  
-  Used until a stable Comtrade API key is integrated.
+- **Local Exposure Layers (User‑Provided CSVs)**  
+  The system optionally loads two chokepoint‑specific exposure datasets:
+  a) Suez Exposure: `data/suez_exposure.csv`
+  Represents trade dependence on the Suez corridor.
+  b) Hormuz Exposure: `data/hormuz_exposure.csv`
+  Represents logistics and energy‑flow dependence on the Strait of Hormuz.
   
 ---
 
