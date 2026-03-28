@@ -104,6 +104,9 @@ You now have the full computational geopolitics engine running locally — inclu
 
 ## Pipeline Overview: News → Signals → Graph
 
+For an in-depth generell explaination: BRICS_Overview.pdf
+For the mathematical foundations: BRICS.pdf 
+
 ## News: BRICS.py
 
 `BRICS.py` is a complete data‑collection and visualization toolkit for analyzing economic, social, resource, governance, and defense indicators for the five BRICS countries: **Brazil, Russia, India, China, and South Africa**.
