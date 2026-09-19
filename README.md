@@ -603,6 +603,11 @@ This project uses publicly available datasets from:
   
 ---
 
+### Development Note
+Parts of the codebase were created with AI assistance ("vibe coding"), but the underlying ideas, research direction, experimental design, mathematical reasoning, and interdisciplinary extensions are my own. AI was used as an implementation and exploration tool, with all major decisions, modifications, and interpretations guided by the author.
+
+---
+
 # License
 
 MIT License
